@@ -19,7 +19,7 @@
 - has_many :comments
 - has_many :orders
 
-## itemss テーブル
+## items テーブル
 
 | Column              | Type       | Options                        |
 | ------------------- | ---------- | ------------------------------ |
@@ -28,7 +28,7 @@
 | category_id         | integer    | null: false                    |
 | item_condition_id   | integer    | null: false                    |
 | shipping_cost_id    | integer    | null: false                    |
-| ship_from_id        | integer    | null: false                    |
+| prefecture_id       | integer    | null: false                    |
 | days_to_ship_id     | integer    | null: false                    |
 | price               | integer    | null: false                    |
 | user                | references | null: false, foreign_key: true |
