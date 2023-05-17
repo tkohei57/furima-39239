@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit]
-  before_action :match_user, only: [:edit]
   before_action :set_item, only: [:show, :edit, :update]
+  before_action :match_user, only: [:edit]
 
   def index
     @items = Item.includes(:user).order('created_at DESC')
@@ -46,9 +46,7 @@ class ItemsController < ApplicationController
   end
 
   def match_user
-    item = Item.find(params[:id])
-    return unless current_user != item.user
-
+    return unless current_user != @item.user
     redirect_to root_path
   end
 end
