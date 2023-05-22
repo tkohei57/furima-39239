@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index]
+  before_action :set_item, only: [:index, :create]
 
   def index
-    @item = Item.find(params[:item_id])
     @order_shipping = OrderShipping.new
     if @item.order == nil
       if current_user.id == @item.user_id
@@ -20,7 +20,6 @@ class OrdersController < ApplicationController
       @order_shipping.save
       to_root
     else
-      @item = Item.find(params[:item_id])
       render :index
     end
   end
@@ -45,5 +44,9 @@ class OrdersController < ApplicationController
 
   def to_root
     redirect_to root_path
+  end
+
+  def set_item
+    @item = Item.find(params[:item_id])
   end
 end
