@@ -14,7 +14,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
-      redirect_to root_path
+      to_root
     else
       render :new
     end
@@ -24,6 +24,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    if @item.order.present?
+      to_root
+    end
   end
 
   def update
@@ -36,10 +39,8 @@ class ItemsController < ApplicationController
 
   def destroy
     item = Item.find(params[:id])
-    if current_user == item.user
-      item.destroy
-    end
-    redirect_to root_path
+    item.destroy if current_user == item.user
+    to_root
   end
 
   private
@@ -55,6 +56,10 @@ class ItemsController < ApplicationController
 
   def match_user
     return unless current_user != @item.user
+    redirect_to root_path
+  end
+
+  def to_root
     redirect_to root_path
   end
 end
